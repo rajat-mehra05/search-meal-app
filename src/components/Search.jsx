@@ -1,5 +1,3 @@
-
-
 import { useState } from "react"
 import axios from "axios"
 
@@ -13,7 +11,8 @@ const Search = () => {
 
     const handleSearch = () => {
         if(!searchValue) alert("Please enter your meal in search box!")
-        handleSearchMealCall(searchValue)
+        handleSearchMealCall(searchValue);
+        setSearchValue("")
     }
 
     // handling search meal call
@@ -26,11 +25,12 @@ const Search = () => {
     const handleRandomApiCall = async () => {
         const res = await axios.get(randomApiURL)
         setRandomMeals(res.data.meals);
+        setMeals([]);
     }
 
 
     return (
-        <div className="min-h-full flex justify-center items-center flex-col bg-gradient-to-r from-orange-600 to-yellow-200">
+        <div className="min-h-screen flex justify-center items-center flex-col bg-gradient-to-r from-orange-400 to-yellow-200">
          <h1 className="text-4xl text-gray-600 p-4 bg-gradient-to-r mt-4 from-cyan-300 to-green-400"> Search your meal </h1>      
             <div className="m-8">
             <input type="search" value={searchValue} onChange={(e) => setSearchValue(e.currentTarget.value)} placeholder="Search any meal..." className="border-2 rounded outline-2 border-red-400 p-2 w-72 " />
@@ -45,11 +45,11 @@ const Search = () => {
             {/* showing user search meals */}
 
         {meals ? (
-          <div className="border-amber-900 border-2 p-4 m-4">
+          <div>
             {meals.map((meal, index) => (
-              <div key={index}>
-                <h1 className="text-slate-900 text-2xl">{meal.strMeal}</h1>
-                <h2 className="text-slate-900 text-2xl">{meal.strArea}</h2>
+              <div key={index} className="border-amber-900 border-2 p-4 m-4 bg-gradient-to-r from-cyan-400 to-green-300">
+                <h1 className="text-red-900 text-2xl">{meal.strMeal}</h1>
+                <h2 className="text-red-900 text-2xl">{meal.strArea}</h2>
                 <img src={meal.strMealThumb} alt="meal-thumbnail" height={240} width={340} loading="lazy" />
               </div>
             ))}
@@ -63,10 +63,10 @@ const Search = () => {
         {randomMeals ? (
           <div>
             {randomMeals.map((meal, index) => (
-              <div key={index}>
-                <h1>{meal.strMeal}</h1>
-                <h2>{meal.strArea}</h2>
-                <img src={meal.strMealThumb} alt="meal-thumbnail" />
+              <div key={index} className="border-amber-900 border-2 p-4 m-4 bg-gradient-to-r from-cyan-400 to-green-300">
+                <h1 className="text-red-900 text-2xl">{meal.strMeal}</h1>
+                <h2 className="text-red-900 text-2xl">{meal.strArea}</h2>
+                <img src={meal.strMealThumb} alt="meal-thumbnail" height={240} width={340} loading="lazy" />
               </div>
             ))}
           </div>
